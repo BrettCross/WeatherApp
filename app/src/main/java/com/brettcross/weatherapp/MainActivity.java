@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText etCity;
     Button btnForecast;
     TextView tvForecastList;
+    Switch swTemperature;
     RequestQueue requestQueue;
 
     String apiKey = "e74617f54e010f26e0c7305dddf44426";
@@ -41,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
         this.etCity = (EditText) findViewById(R.id.et_city);
         this.btnForecast = (Button) findViewById(R.id.btn_get_forecast);
         this.tvForecastList = (TextView) findViewById(R.id.tv_forecast);
+        this.swTemperature = (Switch) findViewById(R.id.sw_temp);
         this.tvForecastList.setMovementMethod(new ScrollingMovementMethod());
 
         requestQueue = Volley.newRequestQueue(this);
+
     }
 
     private void clearForecastList() {
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getForecastList(String city) {
+
         this.url = this.baseUrl + city + this.unit + "&APPID=" + apiKey;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest
@@ -90,5 +95,19 @@ public class MainActivity extends AppCompatActivity {
     public void getForecastClicked(View v) {
         clearForecastList();
         getForecastList(etCity.getText().toString());
+    }
+
+    public void onSwitchClicked(View v) {
+        // switch was toggled (changed from C to F or F to C)
+        if (this.swTemperature.isChecked()) {
+            unit = "&units=imperial";
+        } else {
+            unit = "&units=metric";
+        }
+
+        clearForecastList();
+        getForecastList(etCity.getText().toString());
+
+
     }
 }
