@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="switchTextAppearance">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
 </resources>
